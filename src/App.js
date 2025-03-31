@@ -6,12 +6,13 @@ import Perfume from './pages/ProductPage/Perfume';
 import Diffuser from './pages/ProductPage/Diffuser';
 import New from './pages/ProductPage/New';
 import Footer from './component/Footer';
-import header from './component/Header';
+import Header from './component/Header';
 
 //Router: url과 컴포넌트 연결. 페이지 이동.
 function App() {
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/mypage" element={<Mypage />}/>
@@ -19,7 +20,6 @@ function App() {
         <Route path="/perfume" element={<Perfume />}/>
         <Route path="/new" element={<New />}/>
       </Routes>
-      <Header />
       <Footer />
     </Router>
 

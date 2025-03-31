@@ -1,0 +1,53 @@
+
+@font-face{
+    font-family: 'KaiseiDecol-Regular';
+    src: url("../../public/font/KaiseiDecol-Regular.ttf") format("truetype");
+}
+
+
+@font-face{
+    font-family: 'NanumMyeonjo';
+    src: url("../../public/font/NanumMyeongjo-Regular.ttf") format("truetype");
+}
+
+.footer-title{
+    font-size: 1.2rem;
+    font-family: 'KaiseiDecol-Regular';
+}
+
+.footer-section{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.info-text-wrapper,
+.footer-subtitle{
+    font-family: 'NanumMyeonjo';
+}
+ 
+.info-text-row{
+    display: flex;
+    gap: 16px;
+}
+.info-text-wrapper{
+    display: flex;
+    gap: 16px;  
+}
+
+.info-text-1{
+    color: #B8Bac6
+}
+
+.info-text-2{
+    color: #9698A4;
+}
+
+.footer-container{
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    background-color: #E7eff5;
+    padding: 52px 72px;
+}

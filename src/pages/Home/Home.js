@@ -2,12 +2,17 @@
 
 //React - javascript 에서 html을 쓸 수 있게 해줌.
 import React from 'react';
+import Menu from "./Menu";
+import Banner from "./Banner";
+import Info from "./Info";
+import "../../styles/Home.css";
 
 const Home = () => {
     return(
-        <div>
-            <h1>야 너두 사장될 수 있어!</h1>
-            <p>멋쟁이 사자처럼 13기</p>
+        <div className="home-container">
+            <Banner />
+            <Menu />
+            <Info />
         </div>
     )
 };

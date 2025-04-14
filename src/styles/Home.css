@@ -1,0 +1,99 @@
+
+@font-face{
+    font-family: 'KaiseiDecol-Regular';
+    src: url("../../public/font/KaiseiDecol-Regular.ttf") format("truetype");
+}
+
+
+@font-face{
+    font-family: 'NanumMyeonjo';
+    src: url("../../public/font/NanumMyeongjo-Regular.ttf") format("truetype");
+}
+
+/**Menu**/
+.menu-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: 'KaiseiDecol-Regular';
+}
+
+.menu-section{
+    width: 50%;
+    position: relative;
+}
+
+.menu-section::before{
+    content: " ";
+    position: absolute;
+    top: 16px;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    border: 2px solid white;
+    box-sizing: border-box;
+}
+
+.menu-perfume,
+.menu-diffuser{
+    width:  100%;
+    display: block;
+}
+
+.text-overlay{
+    position: absolute;
+    color: white;
+    font-size: 48px;
+}
+
+.text-perfume{
+    left: 28px;
+    bottom: 28px;
+}
+
+.text-diffuser{
+    right: 28px;
+    bottom: 28px;
+}
+
+/*Banner*/
+.banner-container{
+    width: 100%;
+}
+
+
+/* Info */
+.info-container{
+    justify-content:space-evenly;
+    display: flex;   
+}
+
+.info-left{
+    display: flex;  
+    gap: 20px;
+    font-family: 'KaiseiDecol-Regular';
+    margin: 30px 0px 30px 80px;
+}
+.info-left-text{
+    writing-mode: vertical-lr;
+    text-align: right;
+    font-size: 45px;
+}
+.info-right{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    font-family: 'NanumMyeonjo';
+    margin: 13% 230px 10% 10px;
+}
+
+.info-themetext{
+    font-size: 40px;
+}
+
+.info-maintext{
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    font-size: 15px;
+}

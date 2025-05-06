@@ -29,6 +29,7 @@ const History = () => {
                                     <div >
                                         <img
                                             src={`${process.env.PUBLIC_URL}/img/perfume_3.png`}
+                                            alt="perfume"
                                             className="history-item-img"
                                         ></img>
                                     </div>

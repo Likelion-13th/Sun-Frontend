@@ -3,32 +3,37 @@
     src: url("../../public/font/KaiseiDecol-Regular.ttf") format("truetype");
 }
 
-.header-container{
+header{
+    position: fixed;
     display: flex;
+    width: 100%;
+    top: 0;
+    align-items: center;
     justify-content: space-between;
-    background-color: #c5c5c580;
-    padding: 20px 30px;
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 20px;
+    z-index: 1;
+    box-sizing: border-box;
 }
 
 .header-container a{
+    font-size: 22px;
     font-family: 'KaiseiDecol-Regular';
     text-decoration: none;
     color: white;
 }
 
-.header-menus {
+.header-menus{
     display: flex; 
     gap: 20px;
 }
 
-.header-menus a.active{
-    color: #3A3A3A;
-}
 
 .mypage-style a{
     color: #c5c5c5;
 }
 
+.header-menus a.active,
 .mypage-style .header-logo a,
 .mypage-style a.mypage-active{
     color: #3A3A3A;

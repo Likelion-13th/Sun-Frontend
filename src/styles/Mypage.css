@@ -171,7 +171,8 @@
 .history-item-container{
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 30px;
 }
 .history-item-section{
     align-items: start;

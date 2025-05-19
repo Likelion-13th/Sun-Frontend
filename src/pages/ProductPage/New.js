@@ -3,8 +3,7 @@ import Banner from './Banner';
 import ProductCard from "./ProductCard";
 import "../../styles/ProductPage.css";
 import PayModal from '../../component/PayModal';
-import Diffuser from './Diffuser';
-import Perfume from './Perfume';
+
 
 const New = () => {
     const products = [
@@ -70,7 +69,7 @@ const New = () => {
         const handlePageChange = (pageNumber) => {
             setCurrentPage(pageNumber);
         };
-        
+
         const handleCloseModal = () => {
         setSelectedProduct(null);
         setModalOpen(false);

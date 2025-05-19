@@ -20,7 +20,7 @@ const PayModal = ({ product, onClose}) => {
 
     const handleMileageChange = (e) => {
         const value = e.target.value;
-        const numericValue = value == "" ? 0 : Math.min(Number(value), maxMileage);
+        const numericValue = value === "" ? 0 : Math.min(Number(value), maxMileage);
         setMileageToUse(numericValue);
     };
 

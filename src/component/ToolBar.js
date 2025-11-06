@@ -40,7 +40,7 @@ window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 };
 
 const handleLLoginRedirect = () => {
-  const redirectUrl = 'http://localhost:3000';
+  const redirectUrl = 'https://sun-shop.netlify.app';
 
   const oauthUrl = `http://Sajang-dev-env.eba-5jnyte69.ap-northeast-2.elasticbeanstalk.com/oauth2/start/kakao?redirect_uri=${encodeURI(redirectUrl)}`;
 

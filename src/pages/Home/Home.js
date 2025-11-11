@@ -1,13 +1,31 @@
 //pages 안에 page 별로 폴더가 있음.
 
 //React - javascript 에서 html을 쓸 수 있게 해줌.
-import React from 'react';
+import React, {useEffect} from 'react';
 import Menu from "./Menu";
 import Banner from "./Banner";
 import Info from "./Info";
 import "../../styles/Home.css";
+import {useCookies} from "react-cookie";
+import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
+const Home = ({onLoginChange}) => {
+    const [cookies, setCookie] = useCookies(["accessToken"]);
+    const navigate = useNavigate();
+
+    useEffect(()=> {
+        const params = new URLSearchParams(window.location.search);
+        const accessToken = params.get("accessToken");
+
+        if(accessToken){
+            setCookie("accessToken", accessToken, {
+                path: "/",
+                maxAge: 60 * 60 * 24 * 7,
+            });
+            navigate("/", {replace:true});
+            onLoginChange(true);
+        }
+    }, [setCookie, navigate, onLoginChange]);
     return(
         <div className="home-container">
             <Banner />

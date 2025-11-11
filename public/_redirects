@@ -1,4 +1,4 @@
-/*    /index.html   200!
+/*    /index.html   200
 /users/*    http://sajang-dev-env.eba-5jnyte69.ap-northeast-2.elasticbeanstalk.com/users/:splat 200
 /orders/*   http://sajang-dev-env.eba-5jnyte69.ap-northeast-2.elasticbeanstalk.com/orders/:splat 200
 /token/*    http://sajang-dev-env.eba-5jnyte69.ap-northeast-2.elasticbeanstalk.com/token/:splat 200

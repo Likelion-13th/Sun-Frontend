@@ -3,17 +3,12 @@ import axios from 'axios';
 import "../styles/ToolBar.css";
 import {useCookies} from "react-cookie";
 
-// 백엔드 API URL 설정
-const API_BASE_URL = process.env.NODE_ENV === "development"
-  ? ""  // 개발환경: proxy 사용 (package.json의 proxy가 작동)
-  : "http://sajang-dev-env.eba-5jnyte69.ap-northeast-2.elasticbeanstalk.com";  // 프로덕션: 백엔드 직접 호출
-
 const ToolBar = ({isLogin, onLoginChange}) => { 
   const [cookies, removeCookie] = useCookies(["accessToken"]);
 
   const handleLogout = () => {
     axios
-    .delete(`${API_BASE_URL}/users/logout`, {
+    .delete("/users/logout", {
       headers: {
         accept: "*/*",
         Authorization: `Bearer ${cookies.accessToken}`,
@@ -42,6 +37,7 @@ const ToolBar = ({isLogin, onLoginChange}) => {
         ? "http://localhost:3000"
         : "https://sun-shop.netlify.app";
 
+    // ✅ 변경된 진입 경로: /oauth2/start/kakao
     const oauthUrl =
       "http://sajang-dev-env.eba-5jnyte69.ap-northeast-2.elasticbeanstalk.com/oauth2/start/kakao" +
       `?redirect_uri=${encodeURIComponent(redirectUrl)}`;

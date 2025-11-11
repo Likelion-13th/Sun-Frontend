@@ -39,7 +39,7 @@ const ToolBar = ({isLogin, onLoginChange}) => {
 
     // ✅ 변경된 진입 경로: /oauth2/start/kakao
     const oauthUrl =
-      "http://Sajang-dev-env.eba-5jnyte69.ap-northeast-2.elasticbeanstalk.com/oauth2/start/kakao" +
+      "http://sajang-dev-env.eba-5jnyte69.ap-northeast-2.elasticbeanstalk.com/oauth2/start/kakao" +
       `?redirect_uri=${encodeURIComponent(redirectUrl)}`;
 
     window.location.href = oauthUrl;

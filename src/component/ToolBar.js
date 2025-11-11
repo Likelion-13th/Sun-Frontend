@@ -5,10 +5,11 @@ import {useCookies} from "react-cookie";
 
 const ToolBar = ({isLogin, onLoginChange}) => { 
   const [cookies, removeCookie] = useCookies(["accessToken"]);
+  const BACKEND_URL = 'http://sajang-dev-env.eba-5jnyte69.ap-northeast-2.elasticbeanstalk.com';
 
   const handleLogout = () => {
     axios
-    .delete("/users/logout", {
+    .delete(`${BACKEND_URL}/users/logout`, {
       headers: {
         accept: "*/*",
         Authorization: `Bearer ${cookies.accessToken}`,

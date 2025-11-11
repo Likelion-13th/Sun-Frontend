@@ -10,7 +10,7 @@ import {useCookies} from "react-cookie";
 import { useNavigate } from 'react-router-dom';
 
 const Home = ({onLoginChange}) => {
-    const [cookies, setCookie] = useCookies(["accessToken"]);
+    const [, setCookie] = useCookies(["accessToken"]);
     const navigate = useNavigate();
 
     useEffect(()=> {

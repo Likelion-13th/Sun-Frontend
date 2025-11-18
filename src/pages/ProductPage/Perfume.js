@@ -1,137 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
 import ProductCard from "./ProductCard";
 import "../../styles/ProductPage.css";
 import PayModal from '../../component/PayModal';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const Perfume = () => {
-    const products = [
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_1.png",
-            isNew: true,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_2.png",
-            isNew: true,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_3.png",
-            isNew: false,
-        }, 
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_4.png",
-            isNew: true,
-        }, 
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_5.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_6.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_7.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_8.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_9.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_10.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_11.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_12.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_13.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_14.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "퍼퓸",
-            brand: "브랜드",
-            price: 30000,
-            imagePath: "/img/perfume_15.png",
-            isNew: false,
-        },
-        
-    ];
+    const [products, setProducts] = useState([]);
     
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [cookies] = useCookies(['accessToken']);
+    
 
     const itemsPerPage = 10;
 
@@ -143,6 +25,10 @@ const Perfume = () => {
 
     const handleCardClick = (product) => {
         setSelectedProduct(product);
+        if(typeof cookies.accessToken !== "string"){
+            alert("로그인이 필요합니다");
+            return;
+        }
         setModalOpen(true);
     };
 
@@ -154,6 +40,22 @@ const Perfume = () => {
         setSelectedProduct(null);
         setModalOpen(false);
     };
+
+    useEffect(() => {
+        axios
+        .get("/categories/2/items", {
+        headers: {
+            accept: "*/*",
+            
+        },
+        })
+        .then((response) => {
+            setProducts(response.data.result);
+        })
+        .catch((err)=>{
+        console.log("CATEGORY API 요청 실패", err);
+        });
+    }, []);
 
     return(
         <div>

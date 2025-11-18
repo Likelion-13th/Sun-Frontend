@@ -1,10 +1,20 @@
 import React from 'react';
 
-const History = () => {
-    const onCancel = () => {
-        // API 호출
-        alert("취소");
+const History = ({ historyData, onCancel}) => {
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat('ko-KR').format(amount)
+    }
+
+     const formatDate = (isoString) => {
+        if (!isoString) return '';
+        return isoString.slice(0, 10);
     };
+
+    const sortedHistory = (historyData || []).slice().sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateB - dateA; // 내림차순
+    });
 
     return(
         <div className="history-container-wrap">
@@ -22,37 +32,35 @@ const History = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2025-01-01</td>
-                            <td>
-                                <div className="history-item-container">
-                                    <div >
-                                        <img
-                                            src={`${process.env.PUBLIC_URL}/img/perfume_3.png`}
-                                            alt="perfume"
-                                            className="history-item-img"
-                                        ></img>
-                                    </div>
-                                    <div className="history-item-section">
-                                        <div className="history-item-name">엑스 베티버 오 드 퍼퓸</div>
-                                        <div className="history-item-info">
-                                            줄리엣 해즈 어 건
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>1</td>
-                            <td>123,400원</td>
-                            <td>배송중</td>
-                            <td>
-                                <div className="history-cancel">
-                                    <div 
-                                        className="history-cancel-button"
-                                        onClick={onCancel}
-                                    >취소</div>
-                                </div>
-                            </td>
-                        </tr>
+                         {sortedHistory && sortedHistory.length > 0 ? (
+                            sortedHistory.map((item) => (
+                                <tr key={item.orderId}>
+                                    <td>{formatDate(item.createdAt)}</td>
+                                    <td>{item.itemName}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>{formatCurrency(item.totalPrice)}원</td>
+                                    <td>{item.status}</td>
+                                    <td>
+                                        {item.status === 'PROCESSING' ? (
+                                            <div className="history-cancel">
+                                                <div 
+                                                    className="history-cancel-button"
+                                                    onClick={() => onCancel(item.orderId)}
+                                                >
+                                                    취소
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <span>-</span>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="6">주문 내역이 없습니다.</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../styles/PayModal.css";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const PayModal = ({ product, onClose}) => {
+    const [cookies] = useCookies(["accessToken"]);
     const [quantity, setQuantity] = useState(1);
     const [mileageToUse, setMileageToUse] = useState("");
-    const maxMileage = 10000;
+    //const maxMileage = 10000;
+    const [maxMileage, setMaxmileage] = useState(0);
+
     const [, setProductPrice] = useState(product.price);
     const [totalPrice, setTotalPrice] = useState(product.price);
 
@@ -13,15 +18,58 @@ const PayModal = ({ product, onClose}) => {
     }
 
     useEffect(() => {
-        const newProductPrice = product.price * quantity;
-        setProductPrice(newProductPrice);
-        setTotalPrice(Math.max(newProductPrice - mileageToUse, 0));
-    }, [quantity, mileageToUse, product.price]);
+            const newProductPrice = product.price * quantity;
+            setProductPrice(newProductPrice);
+            setTotalPrice(Math.max(newProductPrice - mileageToUse, 0));
+        }, [quantity, mileageToUse, product.price]);
+
+    useEffect(() => {
+        axios
+        .get("/users/mileage", {
+        headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${cookies.accessToken}`
+            },
+        })
+        .then((response) => {
+            setMaxmileage(response.data.result.maxMileage);
+        })
+        .catch((err)=>{
+            console.log("API 요청 실패", err);
+        });
+    }, [cookies.accessToken]);
 
     const handleMileageChange = (e) => {
         const value = e.target.value;
         const numericValue = value === "" ? 0 : Math.min(Number(value), maxMileage);
         setMileageToUse(numericValue);
+    };
+
+    const handlePayment = async () => {
+        try{
+            const response = await axios.post("/orders",
+                {
+                    itemId: product.id,
+                    quantity: quantity,
+                    mileageToUse: mileageToUse,
+                },
+                {
+                    headers:{
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${cookies.accessToken}`,
+                    },
+                }
+            );
+            if(response.data.isSuccess){
+                alert("주문이 성공적으로 생성되었습니다.");
+                onClose();
+            } else{
+                alert(`주문 실패: ${response.data.message}`);
+            }
+        } catch(error){
+            console.error("결제 오류:", error);
+            alert("결제 처리 중 오류가 발생했습니다.");
+        }
     };
 
     return(
@@ -108,7 +156,7 @@ const PayModal = ({ product, onClose}) => {
                         </div>
                     </div>
                 </div>
-                <button className="pay-button">결제하기</button>
+                <button className="pay-button" onClick={handlePayment}>결제하기</button>
             </div>
         </div>
     );

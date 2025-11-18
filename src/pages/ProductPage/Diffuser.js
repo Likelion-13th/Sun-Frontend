@@ -1,57 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Banner from './Banner';
 import ProductCard from "./ProductCard";
 import "../../styles/ProductPage.css";
 import PayModal from '../../component/PayModal';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const Diffuser = () => {
-    const products = [
-        {
-            id: 1,
-            name: "디퓨저",
-            brand: "브랜드",
-            price: 40000,
-            imagePath: "/img/diffuser_1.png",
-            isNew: true,
-        },
-        {
-            id: 1,
-            name: "디퓨저",
-            brand: "브랜드",
-            price: 40000,
-            imagePath: "/img/diffuser_2.png",
-            isNew: false,
-        },
-        {
-            id: 1,
-            name: "디퓨저",
-            brand: "브랜드",
-            price: 40000,
-            imagePath: "/img/diffuser_3.png",
-            isNew: false,
-        }, 
-        {
-            id: 1,
-            name: "디퓨저",
-            brand: "브랜드",
-            price: 40000,
-            imagePath: "/img/diffuser_4.png",
-            isNew: true,
-        }, 
-        {
-            id: 1,
-            name: "디퓨저",
-            brand: "브랜드",
-            price: 40000,
-            imagePath: "/img/diffuser_5.png",
-            isNew: false,
-        },
-        
-    ];
-
+    const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [cookies] = useCookies(['accessToken']);
 
     const itemsPerPage = 10;
 
@@ -63,6 +23,10 @@ const Diffuser = () => {
 
     const handleCardClick = (product) => {
         setSelectedProduct(product);
+        if(typeof cookies.accessToken !== "string"){
+            alert("로그인이 필요합니다");
+            return;
+        }
         setModalOpen(true);
     };
 
@@ -74,6 +38,21 @@ const Diffuser = () => {
         setSelectedProduct(null);
         setModalOpen(false);
     };
+
+    useEffect(() => {
+        axios
+        .get("/categories/1/items", {
+        headers: {
+            accept: "*/*",
+        },
+        })
+        .then((response) => {
+            setProducts(response.data.result);
+        })
+        .catch((err)=>{
+        console.log("CATEGORY API 요청 실패", err);
+        });
+    }, []);
 
     return(
         <div>
@@ -118,7 +97,9 @@ const Diffuser = () => {
                         </button>
                     )}
             </div>
-            {isModalOpen && (<PayModal product={selectedProduct} onClose={handleCloseModal}/>)}
+            {isModalOpen && (
+                <PayModal product={selectedProduct} onClose={handleCloseModal}/>
+            )}
 
         </div>
     )

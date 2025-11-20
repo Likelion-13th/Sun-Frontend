@@ -44,7 +44,7 @@ const Mypage = () => {
     const fetchHistoryData = useCallback(async () => {
         try{
             const response = await axios.get(
-                "/orders/",
+                "/orders",
                 {
                     headers:{
                         "Content-Type": "application/json",
